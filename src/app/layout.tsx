@@ -16,10 +16,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ThemeRegistry options={{ key: "mui" }}>{children}</ThemeRegistry>
-      </body>
-    </html>
+    <>
+      <link rel="icon" href="/favicon.ico" sizes="any" />
+      <html lang="en">
+        <body className={inter.className}>
+          <ThemeRegistry options={{ key: "mui" }}>{children}</ThemeRegistry>
+        </body>
+      </html>
+    </>
   );
 }
