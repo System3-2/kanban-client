@@ -1,8 +1,9 @@
-import Image from 'next/image'
-import { Box } from '@mui/material'
+import { Box, Container } from "@mui/material";
 
 export default function Home() {
   return (
-    <Box>thick</Box>
-  )
+    <Box>
+      <Container>sun</Container>
+    </Box>
+  );
 }
