@@ -31,21 +31,30 @@ export const neutral = {
   900: "#111927",
 };
 
+// export const primary = withAlphas({
+//   lightest: "#99f6e4",
+//   light: "#5eead4",
+//   main: "#2dd4bf",
+//   dark: "#14b8a6",
+//   darkest: "#0d9488",
+//   contrastText: "#fff",
+// });
+
 export const primary = withAlphas({
-  lightest: "#99f6e4",
-  light: "#5eead4",
-  main: "#2dd4bf",
-  dark: "#14b8a6",
-  darkest: "#0d9488",
+  lightest: "#60a5fa",
+  light: "#3b82f6",
+  main: "#2563eb",
+  dark: "#1d4ed8",
+  darkest: "#1e40af",
   contrastText: "#fff",
 });
 
 export const secondary = withAlphas({
-  lightest: "#fde68a",
-  light: "#fcd34d",
-  main: "#fbbf24",
-  dark: "#f59e0b",
-  darkest: "#d97706",
+  lightest: "#09090b",
+  light: "#09090b",
+  main: "#09090b",
+  dark: "#09090b",
+  darkest: "#09090b",
   contrastText: "#fff",
 });
 

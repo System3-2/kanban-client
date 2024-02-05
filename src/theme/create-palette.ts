@@ -26,7 +26,7 @@ export const createPalette = () => {
       // default: indigo.lightest,
       // paper: indigo.lightest,
     },
-    divider: "#F2F4F7",
+    divider: "#8590a2",
     error,
     info,
     mode: "light",

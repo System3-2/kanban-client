@@ -3,7 +3,7 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { API_URL } from "@/constants";
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
@@ -12,8 +12,6 @@ const authOptions: NextAuthOptions = {
       credentials: {},
       async authorize(credentials: any, req) {
         const { email, password } = credentials;
-        // console.log({ email, password });
-        // console.log({ credentials });
         const raw = JSON.stringify({
           email: email,
           password: password,
@@ -27,24 +25,18 @@ const authOptions: NextAuthOptions = {
             body: raw,
           });
           if (res.status === 400) {
-            console.log("No user");
-            return null;
+            throw new Error("Something went wrong");
           } else if (res.status === 404) {
-            console.log(`no user found`);
-            return null;
+            throw new Error("User not found");
           }
-          // Assuming the response is JSON, use await to parse it
           const data = await res.json();
 
-          // Log or use the retrieved data
-          console.log({ data});
+          // console.log({ data });
 
-          // Return the data or perform further actions
           return data;
         } catch (error) {
           console.error("Error during API call:", error);
-          // Handle the error as needed
-          return null;
+          throw new Error("An error occurred: ");
         }
       },
       type: "credentials",
@@ -59,9 +51,39 @@ const authOptions: NextAuthOptions = {
       else if (new URL(url).origin === baseUrl) return url;
       return baseUrl;
     },
+    async jwt({ token, user }) {
+      console.log({ user });
+
+      if (user) {
+        //@ts-ignore
+        token.name = user.user.name;
+        //@ts-ignore
+        token.email = user.user.email;
+        //@ts-ignore
+        token.picture = user.user.avatarUrl;
+        //@ts-ignore
+        token.id = user.user.id;
+        //@ts-ignore
+        token.token = user.token;
+        token.project = [];
+      }
+
+      return token;
+    },
+    async session({ session, token, user }) {
+      console.log({ token });
+        //@ts-ignore
+      session.user.project = token.project;
+        //@ts-ignore
+      session.user.token = token.token;
+      return {
+        ...session,
+        ...user,
+      };
+    },
   },
   pages: {
-    signIn: "/auth/login",
+    signIn: "/login",
   },
   secret: process.env.NEXTAUTH_SECRET,
 };

@@ -17,11 +17,13 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { signIn } from "next-auth/react";
+import { useSnackbar } from "notistack";
 
 export const LoginForm = () => {
   const [method, setMethod] = useState("email");
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const handleMethodChange = useCallback((_: any, value: string) => {
     setMethod(value);
@@ -40,11 +42,18 @@ export const LoginForm = () => {
       password: Yup.string().required(),
     }),
     onSubmit: async (values) => {
-      console.log(values);
-      await signIn('credentials', {
+      const status = await signIn("credentials", {
         email: values.email,
-        password: values.password
+        password: values.password,
+        callbackUrl: "/",
       });
+
+      if (status?.error) {
+        alert("Something went wrong");
+      }
+      if (!status?.ok) {
+        console.log("not ok");
+      }
     },
   });
 

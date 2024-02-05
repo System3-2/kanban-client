@@ -19,7 +19,6 @@ export const metadata: Metadata = {
 
 const Layout = ({ children }: Props) => {
   return (
-    <div>
       <Box
         component="main"
         sx={{
@@ -65,7 +64,6 @@ const Layout = ({ children }: Props) => {
          <AuthLayout />
         </Grid>
       </Box>
-    </div>
   );
 };
 
